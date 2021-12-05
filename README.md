@@ -13,11 +13,6 @@ Install `ngx-qrcode-styling` from `npm`:
 ```bash
 npm install ngx-qrcode-styling --save
 ```
-Support Version
-```bash
-npm install ngx-qrcode-styling@1.0.9 --save  Angular 12
-npm install ngx-qrcode-styling@1.0.8 --save  Angular 8
-```
 
 Add wanted package to NgModule imports:
 ```typescript
@@ -346,6 +341,17 @@ Property |Type                                |Default Value|Description
 name     |string                              |`'qr'`       |Name of the downloaded file
 extension|string (`'png' 'jpeg' 'webp' 'svg'`)|`'png'`      |File extension
 
+## Support versions
+
+|   Versions    | Ngx-qrcode-styling |
+| ------------- | ------------------ |
+| Angular 12    |          -         |
+| Angular 11    |          -         |
+| Angular 10    |          -         |
+| Angular 9     |          -         |
+| Angular 8     |        1.0.9       |
+
+\
 Author: `DaiDH`, Tel: `0845882882`
 
 ### License

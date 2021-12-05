@@ -1,6 +1,6 @@
 {
   "name": "ngx-qrcode-styling",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "This library is built for the purpose for generating QR codes with a logo and styling.",
   "keywords": [
     "ng",
@@ -32,8 +32,8 @@
     "url": "git+ssh://git@github.com/id1945/ngx-qrcode-styling.git"
   },
   "peerDependencies": {
-    "@angular/common": "^8.2.14",
-    "@angular/core": "^8.2.14"
+    "@angular/common": "^8.0.0",
+    "@angular/core": "^8.0.0"
   },
   "dependencies": {
     "qr-code-styling": "^1.6.0-rc.1",
