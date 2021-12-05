@@ -17,7 +17,15 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "ngx-qrcode-styling": [
+        "dist/ngx-qrcode-styling"
+      ],
+      "ngx-qrcode-styling/*": [
+        "dist/ngx-qrcode-styling/*"
+      ]
+    }
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
