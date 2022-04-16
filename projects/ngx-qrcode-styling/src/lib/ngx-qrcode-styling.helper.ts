@@ -1,5 +1,4 @@
 import QRCodeStyling from "qr-code-styling";
-import { Frames } from "./ngx-qrcode-styling.frames";
 import { Options } from "./ngx-qrcode-styling.options";
 import { Templates } from "./ngx-qrcode-styling.templates";
 
@@ -27,10 +26,15 @@ export const drawQrcode = async (config: Options, containerClient: HTMLElement |
     }
 
     const ADD_FRAME_SVG_TO_ELEMENT = () => {
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(Frames(config.frameOptions.style), "image/svg+xml");
-        container.appendChild(doc.documentElement);
-        return container;
+        const http = fetch(`https://raw.githubusercontent.com/id1945/ngx-qrcode-styling/main/svg/${config.frameOptions.style}.svg`, { method: 'GET' })
+        return new Promise((resolve, reject) => {
+            http.then(response => response.text()).then(result => {
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(result, "image/svg+xml");
+                container.appendChild(doc.documentElement);
+                resolve(result);
+            }).catch(error => reject(error));
+        });
     }
 
     const UPDATE_POSITION_QRCODE_ON_FRAME = () => {
@@ -43,7 +47,7 @@ export const drawQrcode = async (config: Options, containerClient: HTMLElement |
         const clone = configOrigin({ ...config, type: 'svg' } as Options);
         return new Promise((resolve) => {
             new QRCodeStyling(clone).append(addsvg);
-            ((config.type === 'canvas' || !config.type) && config.image) ? setTimeout(() => resolve(true), 2500) : resolve(true); // await request image
+            ((config.type === 'canvas' || !config.type) && config.image) ? setTimeout(() => resolve(true), 400) : resolve(true); // await request image
         });
     }
 
@@ -86,11 +90,15 @@ export const drawQrcode = async (config: Options, containerClient: HTMLElement |
         img.src = ELEMENT_CONVERT_TO_BASE64(UPDATE_SIZE_SVG());
     }
 
-    if (QRCODE_NONE_FRAME())
-        return // Mode qrcode basic
-    ADD_FRAME_SVG_TO_ELEMENT();
-    await CREATE_QRCODE_INTO_FRAME(UPDATE_POSITION_QRCODE_ON_FRAME());
-    if (QRCODE_TYPE_SVG())
-        return // Mode qrcode + frame type svg
-    CREATE_IMAGE(); // Mode qrcode + frame type canvas
+    try {
+        if (QRCODE_NONE_FRAME())
+            return // Mode qrcode basic
+        await ADD_FRAME_SVG_TO_ELEMENT();
+        await CREATE_QRCODE_INTO_FRAME(UPDATE_POSITION_QRCODE_ON_FRAME());
+        if (QRCODE_TYPE_SVG())
+            return // Mode qrcode + frame type svg
+        CREATE_IMAGE(); // Mode qrcode + frame type canvas
+    } catch (error) {
+        console.error(error);
+    }
 }
