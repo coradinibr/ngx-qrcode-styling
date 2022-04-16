@@ -16,6 +16,7 @@ export const configOrigin = (config?: Options) => {
 export const drawQrcode = async (config: Options, containerClient: HTMLElement | HTMLVideoElement | HTMLCanvasElement | SVGElement | any) => {
 
     const container = document.createElement("div");
+    const QRCreate = new QRCodeStyling(configOrigin({ ...config, type: 'svg' } as Options));
 
     const QRCODE_NONE_FRAME = () => {
         if (!config.frameOptions) {
@@ -26,7 +27,7 @@ export const drawQrcode = async (config: Options, containerClient: HTMLElement |
     }
 
     const ADD_FRAME_SVG_TO_ELEMENT = () => {
-        const http = fetch(`https://raw.githubusercontent.com/id1945/ngx-qrcode-styling/main/svg/${config.frameOptions.style}.svg`, { method: 'GET' })
+        const http = fetch(`https://raw.githubusercontent.com/id1945/ngx-qrcode-styling/main/svg/${config.frameOptions.style ? config.frameOptions.style : 'style20'}.svg`, { method: 'GET' })
         return new Promise((resolve, reject) => {
             http.then(response => response.text()).then(result => {
                 const parser = new DOMParser();
@@ -44,10 +45,9 @@ export const drawQrcode = async (config: Options, containerClient: HTMLElement |
     }
 
     const CREATE_QRCODE_INTO_FRAME = (addsvg: HTMLElement) => {
-        const clone = configOrigin({ ...config, type: 'svg' } as Options);
         return new Promise((resolve) => {
-            new QRCodeStyling(clone).append(addsvg);
-            ((config.type === 'canvas' || !config.type) && config.image) ? setTimeout(() => resolve(true), 400) : resolve(true); // await request image
+            QRCreate.append(addsvg);
+            ((config.type === 'canvas' || !config.type) && config.image) ? setTimeout(() => resolve(true), 1200) : resolve(true); // await request image
         });
     }
 
@@ -75,7 +75,7 @@ export const drawQrcode = async (config: Options, containerClient: HTMLElement |
     }
 
     const UPDATE_SIZE_SVG = () => {
-        const s1 = container.querySelector(`#${config.frameOptions.style}-svg`);
+        const s1 = container.querySelector(`#${config.frameOptions.style ? config.frameOptions.style : 'style20'}-svg`);
         s1.setAttribute('height', `${config.frameOptions.height || 300}px`);
         s1.setAttribute('width', `${config.frameOptions.width || 300}px`);
         return s1 as HTMLElement;
