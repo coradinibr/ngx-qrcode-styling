@@ -1,11 +1,12 @@
-import { Component, ElementRef, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { Options, DrawType, ShapeType, TypeNumber, Mode, ErrorCorrectionLevel, DotType, Gradient, CornerSquareType, CornerDotType } from './ngx-qrcode-styling.options';
 import { NgxQrcodeStylingService } from './ngx-qrcode-styling.service';
 import { switchConfig } from './ngx-qrcode-styling.helper';
 
 @Component({
   selector: 'ngx-qrcode-styling',
-  template: '<ng-content></ng-content>'
+  template: '<ng-content></ng-content>',
+  encapsulation: ViewEncapsulation.None
 })
 export class NgxQrcodeStylingComponent implements OnInit {
 

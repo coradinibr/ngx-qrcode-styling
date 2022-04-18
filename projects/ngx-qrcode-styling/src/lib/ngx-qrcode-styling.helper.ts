@@ -45,10 +45,9 @@ export const drawQrcode = async (config: Options, containerClient: HTMLElement |
     }
 
     const CREATE_QRCODE_INTO_FRAME = (addsvg: HTMLElement) => {
-        return new Promise((resolve) => {
+        return QRCreate._svgDrawingPromise.then(() => {
             QRCreate.append(addsvg);
-            ((config.type === 'canvas' || !config.type) && config.image) ? setTimeout(() => resolve(true), 1200) : resolve(true); // await request image
-        });
+        })
     }
 
     const QRCODE_TYPE_SVG = () => {
