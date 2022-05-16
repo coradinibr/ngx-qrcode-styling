@@ -17,7 +17,7 @@ export class NgxQrcodeStylingService {
     try {
       drawQrcode(switchConfig(config.template, config), container);
     } catch (error) {
-      console.error('ERROR create qr-code-styling: ', error);
+      console.error('ERROR create ngx-qrcode-styling: ', error);
     }
   }
 
@@ -30,7 +30,7 @@ export class NgxQrcodeStylingService {
     try {
       new QRCodeStyling(configOrigin(switchConfig(config.template, config))).update(options);
     } catch (error) {
-      console.error('ERROR update qr-code-styling: ', error);
+      console.error('ERROR update ngx-qrcode-styling: ', error);
     }
   }
 
@@ -43,7 +43,7 @@ export class NgxQrcodeStylingService {
     try {
       new QRCodeStyling(configOrigin(switchConfig(config.template, config))).applyExtension(extension)
     } catch (error) {
-      console.error('ERROR applyExtension qr-code-styling: ', error);
+      console.error('ERROR applyExtension ngx-qrcode-styling: ', error);
     }
   }
 
@@ -56,7 +56,7 @@ export class NgxQrcodeStylingService {
     try {
       new QRCodeStyling(configOrigin(switchConfig(config.template, config))).deleteExtension();
     } catch (error) {
-      console.error('ERROR deleteExtension qr-code-styling: ', error);
+      console.error('ERROR deleteExtension ngx-qrcode-styling: ', error);
     }
   }
 
@@ -70,7 +70,7 @@ export class NgxQrcodeStylingService {
     try {
       new QRCodeStyling(configOrigin(switchConfig(config.template, config))).getRawData(extension);
     } catch (error) {
-      console.error('ERROR getRawData qr-code-styling: ', error);
+      console.error('ERROR getRawData ngx-qrcode-styling: ', error);
     }
   }
 
@@ -84,7 +84,7 @@ export class NgxQrcodeStylingService {
     try {
       new QRCodeStyling(configOrigin(switchConfig(config.template, config))).download(downloadOptions)
     } catch (error) {
-      console.error('ERROR download qr-code-styling: ', error);
+      console.error('ERROR download ngx-qrcode-styling: ', error);
     }
   }
 }

@@ -3,11 +3,12 @@ import { Options } from "./ngx-qrcode-styling.options";
 import { Templates } from "./ngx-qrcode-styling.templates";
 
 export const switchConfig = (template?: string, config?: Options) => {
-    return template ? { ...Templates(template.toLocaleLowerCase()), ...config } : { ...config };
+    const conf = config && JSON.parse(JSON.stringify(config));
+    return template ? { ...Templates(template.toLocaleLowerCase()), ...conf } : { ...conf };
 };
 
 export const configOrigin = (config?: Options) => {
-    const conf = { ...config };
+    const conf = config && JSON.parse(JSON.stringify(config));
     delete conf.frameOptions;
     delete conf.template;
     return conf;
@@ -16,7 +17,6 @@ export const configOrigin = (config?: Options) => {
 export const drawQrcode = async (config: Options, containerClient: HTMLElement | HTMLVideoElement | HTMLCanvasElement | SVGElement | any) => {
 
     const container = document.createElement("div");
-    const QRCreate = new QRCodeStyling(configOrigin({ ...config, type: 'svg' } as Options));
 
     const QRCODE_NONE_FRAME = () => {
         if (!config.frameOptions) {
@@ -34,7 +34,10 @@ export const drawQrcode = async (config: Options, containerClient: HTMLElement |
                 const doc = parser.parseFromString(result, "image/svg+xml");
                 container.appendChild(doc.documentElement);
                 resolve(result);
-            }).catch(error => reject(error));
+            }).catch(error => {
+                console.error(error);
+                reject(error);
+            });
         });
     }
 
@@ -45,9 +48,10 @@ export const drawQrcode = async (config: Options, containerClient: HTMLElement |
     }
 
     const CREATE_QRCODE_INTO_FRAME = (addsvg: HTMLElement) => {
+        const QRCreate = new QRCodeStyling(configOrigin({ ...config, type: 'svg' } as Options));
         return QRCreate._svgDrawingPromise.then(() => {
             QRCreate.append(addsvg);
-        })
+        }).catch(error => console.error(error))
     }
 
     const QRCODE_TYPE_SVG = () => {
