@@ -161,105 +161,103 @@ export class NgxQrcodeStylingComponent implements OnInit {
   ngOnInit(): void {
     if (this.canvas) {
 
-      let config = this.config;
-
       /**
        * @Input override
        */
       if (this.template)
-        config = {
-          ...config,
+        this.config = {
+          ...this.config,
           template: this.template
         };
 
       if (this.type)
-        config = {
-          ...config,
+        this.config = {
+          ...this.config,
           type: this.type
         };
 
       if (this.shape)
-        config = {
-          ...config,
+        this.config = {
+          ...this.config,
           shape: this.shape
         };
 
       if (this.width)
-        config = {
-          ...config,
+        this.config = {
+          ...this.config,
           width: this.width
         };
 
       if (this.height)
-        config = {
-          ...config,
+        this.config = {
+          ...this.config,
           height: this.height
         };
 
       if (this.margin)
-        config = {
-          ...config,
+        this.config = {
+          ...this.config,
           margin: this.margin
         };
 
       if (this.data)
-        config = {
-          ...config,
+        this.config = {
+          ...this.config,
           data: this.data
         };
 
       if (this.image)
-        config = {
-          ...config,
+        this.config = {
+          ...this.config,
           image: this.image
         };
 
       if (this.frameOptions)
-        config = {
-          ...config,
+        this.config = {
+          ...this.config,
           frameOptions: this.frameOptions
         };
 
       if (this.qrOptions)
-        config = {
-          ...config,
+        this.config = {
+          ...this.config,
           qrOptions: this.qrOptions
         };
 
       if (this.imageOptions)
-        config = {
-          ...config,
+        this.config = {
+          ...this.config,
           imageOptions: this.imageOptions
         };
 
       if (this.dotsOptions)
-        config = {
-          ...config,
+        this.config = {
+          ...this.config,
           dotsOptions: this.dotsOptions
         };
 
       if (this.cornersSquareOptions)
-        config = {
-          ...config,
+        this.config = {
+          ...this.config,
           cornersSquareOptions: this.cornersSquareOptions
         };
 
       if (this.cornersDotOptions)
-        config = {
-          ...config,
+        this.config = {
+          ...this.config,
           cornersDotOptions: this.cornersDotOptions
         };
 
       if (this.backgroundOptions)
-        config = {
-          ...config,
+        this.config = {
+          ...this.config,
           backgroundOptions: this.backgroundOptions
         };
 
       /**
        * New qrcode
        */
-      this.create(config);
+      this.create(this.config);
     }
   }
 

@@ -185,21 +185,19 @@ export const defaultTemplate = (config?: Options): Options => {
  * @returns 
  */
 export const deepUpdate = async (config: Options, configUpdate: Options): Promise<Options> => {
-    let deep = {
-        ...config && JSON.parse(JSON.stringify(config)),
-        ...configUpdate
-    }
+    const origin = config && JSON.parse(JSON.stringify(config));
+    let close = { ...origin, ...configUpdate }
     const keys = ['frameOptions', 'qrOptions', 'imageOptions', 'dotsOptions', 'cornersSquareOptions', 'cornersDotOptions', 'backgroundOptions'];
     for await (const key of keys) {
         if (configUpdate?.hasOwnProperty(key)) {
-            deep = {
-                ...deep,
+            close = {
+                ...close,
                 [key]: {
-                    ...deep?.[key],
-                    ...(configUpdate as any)?.[key]
+                    ...origin?.[key],
+                    ...(configUpdate as any)?.[key],
                 }
             }
         }
     }
-    return deep;
+    return close;
 };
