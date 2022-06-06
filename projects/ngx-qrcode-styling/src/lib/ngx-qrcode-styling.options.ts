@@ -9,7 +9,7 @@ export declare type GradientType = "radial" | "linear";
 export declare type DrawType = "canvas" | "svg";
 export declare type ShapeType = "square" | "circle";
 export declare type TemplateType = "classic" | "ocean" | "sunflower" | "luxury" | "bitcoin" | "starbucks" | "angular" | "facebook" | "jungle" | "green" | "sky" | "mosaic" | "coffee" | "vintage" | "stamp" | "chess";
-export declare type FrameStyle = "style20" | "style21" | "style22" | "style23" | "style24" | "style25" | "style26" | "style27" | "style28" | "style29" | "style30" | "style31" | "style32" | "style33" | "style34" | "style35" | "style36" | "style37" | "style38" | "style39" | "style40" | "style41" | "style42" | "style43" | "style44" | "style45" | "style46" | "style47" | "style48" | "style49" | "style50" | "style51" | "style52" | "style53" | "style54" | "style55" | "style56" | "style57" | "style58" | "style59" | "style60" | "style61" | "style62" | "style63" | "style64" | "style65" | "style66" | "style67" | "style68" | "style69" | "style70" | "style71" | "style72" | "style73" | "style74" | "style75" | "style76" | "style77" | "style78" | "style79" | "style80";
+export declare type FrameStyle = "style20" | "style21" | "style22" | "style23" | "style24" | "style25" | "style26" | "style27" | "style28" | "style29" | "style30" | "style31" | "style32" | "style33" | "style34" | "style35" | "style36" | "style37" | "style38" | "style39" | "style40" | "style41" | "style42" | "style43" | "style44" | "style45" | "style46" | "style47" | "style48" | "style49" | "style50" | "style51" | "style52" | "style53" | "style54" | "style55" | "style56" | "style57" | "style58" | "style59" | "style60" | "style61" | "style62" | "style63" | "style64" | "style65" | "style66" | "style67" | "style68" | "style69" | "style70" | "style71" | "style72" | "style73" | "style74" | "style75" | "style76" | "style77" | "style78" | "style79" | "style80" | "style81" | "style82" | "style83" | "style84" | "style85" | "style86" | "style87" | "style88" | "style89" | "style90" | "style91" | "style92" | "style93" | "style94" | "style95" | "style96" | "style97" | "style98" | "style99" | "style100";
 
 export declare type Gradient = {
     type: GradientType;
@@ -67,7 +67,7 @@ export declare type Options = {
     image?: string;
     template?: string;
     frameOptions?: {
-        style?: string;
+        style?: FrameStyle;
         height?: number;
         width?: number;
         x?: number;

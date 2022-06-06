@@ -9,6 +9,7 @@ import {
   ErrorCorrectionLevel,
   ExtensionFunction,
   FileExtension,
+  FrameStyle,
   Gradient,
   Mode,
   Options,
@@ -17,7 +18,6 @@ import {
   TypeNumber,
 } from './ngx-qrcode-styling.options'
 import { NgxQrcodeStylingService } from './ngx-qrcode-styling.service'
-import { Templates } from './ngx-qrcode-styling.templates'
 
 @Component({
   selector: 'ngx-qrcode-styling',
@@ -33,7 +33,7 @@ export class NgxQrcodeStylingComponent implements OnInit {
   public config!: Options;
 
   /**
-   * string
+   * TemplateType
    */
   @Input()
   public template: TemplateType = 'classic';
@@ -85,7 +85,7 @@ export class NgxQrcodeStylingComponent implements OnInit {
    */
   @Input()
   public frameOptions!: {
-    style?: string;
+    style?: FrameStyle;
     height?: number;
     width?: number;
     x?: number;
@@ -268,11 +268,7 @@ export class NgxQrcodeStylingComponent implements OnInit {
    * @param config 
    */
   public create(config: Options): void {
-    try {
-      this.service.drawQrcode(this.defaultTemplate(config), this.canvas.nativeElement)()()();
-    } catch (error) {
-      console.error('ERROR create ngx-qrcode-styling: ', error);
-    }
+    this.service.create(config, this.canvas.nativeElement);
   }
 
   /**
@@ -280,11 +276,7 @@ export class NgxQrcodeStylingComponent implements OnInit {
    * @param config 
    */
   public update(config: Options): void {
-    try {
-      this.service.drawQrcode(this.defaultTemplate(config), this.canvas.nativeElement)()()();
-    } catch (error) {
-      console.error('ERROR update ngx-qrcode-styling: ', error);
-    }
+    this.service.update(config, this.canvas.nativeElement);
   }
 
   /**
@@ -293,48 +285,25 @@ export class NgxQrcodeStylingComponent implements OnInit {
    * @param extension 
    */
   public applyExtension(config: Options, extension: ExtensionFunction): void {
-    try {
-      this.service.drawQrcode(this.defaultTemplate(config), this.canvas.nativeElement)(extension)()();
-    } catch (error) {
-      console.error('ERROR applyExtension ngx-qrcode-styling: ', error);
-    }
+    this.service.applyExtension(config, this.canvas.nativeElement, extension);
   }
 
   /**
    * getRawData
    * @param config 
    * @param extension 
-   * @returns 
    */
   public getRawData(config: Options, extension?: FileExtension): void {
-    try {
-      this.service.drawQrcode(this.defaultTemplate(config), this.canvas.nativeElement)()(extension)();
-    } catch (error) {
-      console.error('ERROR getRawData ngx-qrcode-styling: ', error);
-    }
+    this.service.getRawData(config, this.canvas.nativeElement, extension);
   }
 
   /**
-   * getRawData
+   * download
    * @param config 
-   * @param extension 
-   * @returns 
+   * @param downloadOptions 
    */
   public download(config: Options, downloadOptions?: Partial<DownloadOptions> | string): void {
-    try {
-      this.service.drawQrcode(this.defaultTemplate(config), this.canvas.nativeElement)()()(downloadOptions);
-    } catch (error) {
-      console.error('ERROR download ngx-qrcode-styling: ', error);
-    }
+    this.service.download(config, this.canvas.nativeElement, downloadOptions);
   }
 
-  /**
-   * defaultTemplate
-   * @param config 
-   * @returns 
-   */
-  private defaultTemplate(config?: Options): Options {
-    const deep = config && JSON.parse(JSON.stringify(config));
-    return (config && config.template) ? { ...Templates(config.template.toLocaleLowerCase()), ...deep } : deep;
-  };
 }
