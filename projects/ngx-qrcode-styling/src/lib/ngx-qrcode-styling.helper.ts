@@ -182,16 +182,17 @@ export const defaultTemplate = (config?: Options): Options => {
 /**
  * deepUpdate
  * @param config 
+ * @param configUpdate 
  * @returns 
  */
 export const deepUpdate = async (config: Options, configUpdate: Options): Promise<Options> => {
     const origin = config && JSON.parse(JSON.stringify(config));
-    let close = { ...origin, ...configUpdate }
+    let clone = { ...origin, ...configUpdate }
     const keys = ['frameOptions', 'qrOptions', 'imageOptions', 'dotsOptions', 'cornersSquareOptions', 'cornersDotOptions', 'backgroundOptions'];
     for await (const key of keys) {
         if (configUpdate?.hasOwnProperty(key)) {
-            close = {
-                ...close,
+            clone = {
+                ...clone,
                 [key]: {
                     ...origin?.[key],
                     ...(configUpdate as any)?.[key],
@@ -199,5 +200,5 @@ export const deepUpdate = async (config: Options, configUpdate: Options): Promis
             }
         }
     }
-    return close;
+    return clone;
 };
