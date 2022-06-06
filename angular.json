@@ -14,6 +14,11 @@
           "options": {
             "tsConfig": "projects/ngx-qrcode-styling/tsconfig.lib.json",
             "project": "projects/ngx-qrcode-styling/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/ngx-qrcode-styling/tsconfig.lib.prod.json"
+            }
           }
         },
         "test": {
@@ -37,6 +42,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "ngx-qrcode-styling"
+    }
+  },
+  "defaultProject": "ngx-qrcode-styling",
+  "cli": {
+    "analytics": "712a5089-8df4-4e86-ae94-c0ade0300482"
+  }
 }

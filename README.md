@@ -341,7 +341,10 @@ Property |Type                                |Default Value|Description
 name     |string                              |`'qr'`       |Name of the downloaded file
 extension|string (`'png' 'jpeg' 'webp' 'svg'`)|`'png'`      |File extension
 
-## Support versions >= Angular 8
+## Support versions 
+    
+    1.1.0 >= Angular 9
+    1.0.13 >= Angular 8
 
 \
 Author: `DaiDH`, Tel: `0845882882`
