@@ -275,8 +275,8 @@ export class NgxQrcodeStylingComponent implements OnInit {
    * update
    * @param config 
    */
-  public update(config: Options): void {
-    this.service.update(config, this.canvas.nativeElement);
+  public update(config: Options, configUpdate: Options): void {
+    this.service.update(config, configUpdate, this.canvas.nativeElement);
   }
 
   /**
@@ -306,4 +306,11 @@ export class NgxQrcodeStylingComponent implements OnInit {
     this.service.download(config, this.canvas.nativeElement, downloadOptions);
   }
 
+
+  /**
+   * currentConfig
+   */
+  get currentConfig(): Options {
+    return this.config;
+  }
 }

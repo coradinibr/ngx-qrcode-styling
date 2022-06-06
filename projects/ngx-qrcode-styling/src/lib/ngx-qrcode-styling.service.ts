@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core'
 
 import { DownloadOptions, ExtensionFunction, FileExtension, Options } from './ngx-qrcode-styling.options'
-import { defaultTemplate, drawQrcode } from './ngx-qrcode-styling.helper'
+import { deepUpdate, defaultTemplate, drawQrcode } from './ngx-qrcode-styling.helper'
 
 @Injectable({
   providedIn: 'root'
@@ -24,9 +24,11 @@ export class NgxQrcodeStylingService {
    * update
    * @param config 
    */
-  public update(config: Options, container: HTMLElement | HTMLVideoElement | HTMLCanvasElement | SVGElement | any): void {
+  public update(config: Options, configUpdate: Options, container: HTMLElement | HTMLVideoElement | HTMLCanvasElement | SVGElement | any): void {
     try {
-      drawQrcode(defaultTemplate(config), container)()()();
+      deepUpdate(defaultTemplate(config), defaultTemplate(configUpdate)).then(conf => {
+        drawQrcode(conf, container)()()();
+      });
     } catch (error) {
       console.error('ERROR update ngx-qrcode-styling: ', error);
     }
