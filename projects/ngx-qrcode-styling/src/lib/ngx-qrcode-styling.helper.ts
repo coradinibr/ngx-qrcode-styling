@@ -155,8 +155,7 @@ export function drawQrcode(config: Options, container: HTMLElement | HTMLVideoEl
             return // Mode qrcode basic
         } else {
             await ADD_FRAME_SVG_TO_ELEMENT();
-            const CQIF = CREATE_QRCODE_INTO_FRAME(UPDATE_POSITION_QRCODE_ON_FRAME());
-            await CQIF;
+            await CREATE_QRCODE_INTO_FRAME(UPDATE_POSITION_QRCODE_ON_FRAME());
             if (QRCODE_TYPE_SVG()) {
                 // Mode qrcode + frame type svg
                 subject.next({ config, container });
