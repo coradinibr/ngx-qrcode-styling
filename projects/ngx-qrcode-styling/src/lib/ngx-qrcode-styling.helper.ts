@@ -91,7 +91,7 @@ export function drawQrcode(config: Options, container: HTMLElement | HTMLVideoEl
      * @returns 
      */
     const QRCODE_TYPE_SVG = () => {
-        if (config.type === 'svg') {
+        if (config?.type === 'svg') {
             UPDATE_SIZE_SVG();
             container.appendChild(element);
             return true;
@@ -180,7 +180,7 @@ export function drawQrcode(config: Options, container: HTMLElement | HTMLVideoEl
  */
 export const defaultTemplate = (config?: Options): Options => {
     const deep = config && JSON.parse(JSON.stringify(config));
-    return (config && config.template) ? { ...Templates(config.template.toLocaleLowerCase()), ...deep } : deep;
+    return config?.template ? { ...Templates(config?.template?.toLocaleLowerCase()), ...deep } : deep;
 };
 
 /**
