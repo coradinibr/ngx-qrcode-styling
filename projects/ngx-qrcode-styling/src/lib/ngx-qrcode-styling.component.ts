@@ -1,14 +1,12 @@
 import { Component, ElementRef, Input, OnInit, ViewEncapsulation } from '@angular/core'
+import { AsyncSubject } from 'rxjs';
 
 import {
   CornerDotType,
   CornerSquareType,
   DotType,
-  DownloadOptions,
   DrawType,
   ErrorCorrectionLevel,
-  ExtensionFunction,
-  FileExtension,
   FrameStyle,
   Gradient,
   Mode,
@@ -254,9 +252,6 @@ export class NgxQrcodeStylingComponent implements OnInit {
           backgroundOptions: this.backgroundOptions
         };
 
-      /**
-       * New qrcode
-       */
       this.create(this.config);
     }
   }
@@ -264,51 +259,29 @@ export class NgxQrcodeStylingComponent implements OnInit {
   /**
    * create
    * @param config 
+   * @returns 
    */
-  public create(config: Options): void {
-    this.service.create(config, this.canvas.nativeElement);
+  public create(config: Options): AsyncSubject<any> {
+    return this.service.create(config, this.canvas.nativeElement);
   }
 
   /**
    * update
    * @param config 
+   * @param configUpdate 
+   * @returns 
    */
-  public update(config: Options, configUpdate: Options): void {
-    this.service.update(config, configUpdate, this.canvas.nativeElement);
+  public update(config: Options, configUpdate: Options): AsyncSubject<any> {
+    return this.service.update(config, configUpdate, this.canvas.nativeElement);
   }
 
   /**
-   * applyExtension
-   * @param config 
-   * @param extension 
+   * download image
+   * @param fileName eg: demo.png
+   * @param timeout 
+   * @returns 
    */
-  public applyExtension(config: Options, extension: ExtensionFunction): void {
-    this.service.applyExtension(config, this.canvas.nativeElement, extension);
-  }
-
-  /**
-   * getRawData
-   * @param config 
-   * @param extension 
-   */
-  public getRawData(config: Options, extension?: FileExtension): void {
-    this.service.getRawData(config, this.canvas.nativeElement, extension);
-  }
-
-  /**
-   * download
-   * @param config 
-   * @param downloadOptions 
-   */
-  public download(config: Options, downloadOptions?: Partial<DownloadOptions> | string): void {
-    this.service.download(config, this.canvas.nativeElement, downloadOptions);
-  }
-
-
-  /**
-   * currentConfig
-   */
-  get currentConfig(): Options {
-    return this.config;
+  public download(fileName: string, timeout = 100): AsyncSubject<any> {
+    return this.service.download(fileName, this.canvas.nativeElement, timeout);
   }
 }

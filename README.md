@@ -56,7 +56,8 @@ export class AppComponent {
 ```
 Or
 ```html
-<ngx-qrcode-styling 
+<ngx-qrcode-styling
+  #qrcode
   [config]="config" 
   [type]="'canvas'"
   [shape]="'square'"
@@ -66,6 +67,33 @@ Or
   [data]="'Angular QRCode'"
   [image]="'https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg'">
 </ngx-qrcode-styling>
+```
+```typescript
+import { NgxQrcodeStylingComponent, Options } from 'ngx-qrcode-styling';
+
+export class AppComponent {
+    @ViewChild('qrcode', { static: false }) public qrcode!: NgxQrcodeStylingComponent;
+
+    onUpdate(): void {
+        this.qrcode.update(this.qrcode.config, {
+          // height: 300,
+          // width: 300,
+          frameOptions: {
+            height: 600,
+            width: 600,
+          },
+          ...
+        }).subscribe((res) => {
+          // TO DO something!
+        });
+    }
+    
+    onDownload(): void {
+        this.qrcode.download("file-name.png").subscribe((res) => {
+          // TO DO something!
+        });
+    }
+}
 ```
 Or
 ```html
@@ -82,7 +110,9 @@ export class AppComponent implements AfterViewInit {
 
     ngAfterViewInit(): void {
         // Create QRCode by Service and ElementRef 
-        this.qrcode.create(this.config, this.canvas.nativeElement)
+        this.qrcode.create(this.config, this.canvas.nativeElement).subscribe((res) => {
+          // TO DO something!
+        });
     }
 }
 ```
@@ -100,7 +130,9 @@ export class AppComponent implements AfterViewInit {
    
     ngAfterViewInit(): void {
         // Create QRCode by Service and HTMLElement 
-        this.qrcode.create(this.config, document.getElementById('canvas'))
+        this.qrcode.create(this.config, document.getElementById('canvas')).subscribe((res) => {
+          // TO DO something!
+        });
     }
 }
 ```
@@ -309,37 +341,8 @@ Property|Type            |Default Value|Description
 offset  |number (`0 - 1`)|             |Position of color in gradient range
 color   |string          |             |Color of stop in gradient range
 
-#### QRCodeStyling methods
-`NgxQrcodeStylingService.create(config, container) => void`
 
-Param    |Type       |Description
----------|-----------|-----------
-container|DOM element|This container will be used for appending of the QR code
 
-`NgxQrcodeStylingService.getRawData(config, extension) => Promise<Blob>`
-
-Param    |Type                                |Default Value|Description
----------|------------------------------------|-------------|------------
-extension|string (`'png' 'jpeg' 'webp' 'svg'`)|`'png'`      |Blob type
-
-`NgxQrcodeStylingService.update(config, options) => void`
-
-Param  |Type  |Description
--------|------|--------------------------------------
-options|object|The same options as for initialization
-
-`NgxQrcodeStylingService.download(config, downloadOptions) => Promise<void>`
-
-Param          |Type  |Description
----------------|------|------------
-downloadOptions|object|Options with extension and name of file (not required)
-
-`downloadOptions` 
-
-Property |Type                                |Default Value|Description
----------|------------------------------------|-------------|-----------------------------------------------------
-name     |string                              |`'qr'`       |Name of the downloaded file
-extension|string (`'png' 'jpeg' 'webp' 'svg'`)|`'png'`      |File extension
 
 ## Support versions 
     

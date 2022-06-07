@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core'
+import { AsyncSubject } from 'rxjs';
 
-import { DownloadOptions, ExtensionFunction, FileExtension, Options } from './ngx-qrcode-styling.options'
+import { Options } from './ngx-qrcode-styling.options'
 import { deepUpdate, defaultTemplate, drawQrcode } from './ngx-qrcode-styling.helper'
 
 @Injectable({
@@ -11,66 +12,51 @@ export class NgxQrcodeStylingService {
   /**
    * create
    * @param config 
+   * @param container 
+   * @returns 
    */
-  public create(config: Options, container: HTMLElement | HTMLVideoElement | HTMLCanvasElement | SVGElement | any): void {
-    try {
-      drawQrcode(defaultTemplate(config), container)()()();
-    } catch (error) {
-      console.error('ERROR create ngx-qrcode-styling: ', error);
-    }
+  public create(config: Options, container: HTMLElement | HTMLVideoElement | HTMLCanvasElement | SVGElement | any): AsyncSubject<any> {
+    return drawQrcode(defaultTemplate(config), container);
   }
 
   /**
    * update
    * @param config 
+   * @param configUpdate 
+   * @param container 
+   * @returns 
    */
-  public update(config: Options, configUpdate: Options, container: HTMLElement | HTMLVideoElement | HTMLCanvasElement | SVGElement | any): void {
-    try {
-      deepUpdate(defaultTemplate(config), defaultTemplate(configUpdate)).then(conf => {
-        drawQrcode(conf, container)()()();
+  public update(config: Options, configUpdate: Options, container: HTMLElement | HTMLVideoElement | HTMLCanvasElement | SVGElement | any): AsyncSubject<any> {
+    const subject = new AsyncSubject();
+    (async function () {
+      const conf = await deepUpdate(defaultTemplate(config), defaultTemplate(configUpdate));
+      drawQrcode(conf, container).subscribe(s => {
+        subject.next(s);
+        subject.complete();
       });
-    } catch (error) {
-      console.error('ERROR update ngx-qrcode-styling: ', error);
-    }
+    })();
+    return subject;
   }
 
   /**
-   * applyExtension
-   * @param config 
-   * @param extension 
+   * download image
+   * @param fileName eg: demo.png
+   * @param container 
+   * @param timeout 
+   * @returns 
    */
-  public applyExtension(config: Options, container: HTMLElement | HTMLVideoElement | HTMLCanvasElement | SVGElement | any, extension: ExtensionFunction): void {
-    try {
-      drawQrcode(defaultTemplate(config), container)(extension)()();
-    } catch (error) {
-      console.error('ERROR applyExtension ngx-qrcode-styling: ', error);
-    }
+  public download(fileName: string, container: HTMLElement | HTMLVideoElement | HTMLCanvasElement | SVGElement | any, timeout = 100): AsyncSubject<any> {
+    const subject = new AsyncSubject();
+    setTimeout(() => {
+      const canvas = container?.querySelector('canvas')
+      const dataURL = canvas?.toDataURL(`image/${fileName?.split('.')?.slice(-1)?.toString()}`);
+      const link = document.createElement('a');
+      link.download = fileName;
+      link.href = dataURL;
+      link.click();
+      subject.next({ fileName, container });
+      subject.complete();
+    }, timeout);
+    return subject;
   }
-
-  /**
-   * getRawData
-   * @param config 
-   * @param extension 
-   */
-  public getRawData(config: Options, container: HTMLElement | HTMLVideoElement | HTMLCanvasElement | SVGElement | any, extension?: FileExtension): void {
-    try {
-      drawQrcode(defaultTemplate(config), container)()(extension)();
-    } catch (error) {
-      console.error('ERROR getRawData ngx-qrcode-styling: ', error);
-    }
-  }
-
-  /**
-   * download
-   * @param config 
-   * @param downloadOptions 
-   */
-  public download(config: Options, container: HTMLElement | HTMLVideoElement | HTMLCanvasElement | SVGElement | any, downloadOptions?: Partial<DownloadOptions> | string): void {
-    try {
-      drawQrcode(defaultTemplate(config), container)()()(downloadOptions);
-    } catch (error) {
-      console.error('ERROR download ngx-qrcode-styling: ', error);
-    }
-  }
-
 }

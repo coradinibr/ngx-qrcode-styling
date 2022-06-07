@@ -4,7 +4,7 @@ export interface UnknownObject {
 export declare type DotType = "dots" | "rounded" | "classy" | "classy-rounded" | "square" | "extra-rounded";
 export declare type CornerDotType = "dot" | "square";
 export declare type CornerSquareType = "dot" | "square" | "extra-rounded";
-export declare type FileExtension = "svg" | "png" | "jpeg" | "webp";
+// export declare type FileExtension = "svg" | "png" | "jpeg" | "webp";
 export declare type GradientType = "radial" | "linear";
 export declare type DrawType = "canvas" | "svg";
 export declare type ShapeType = "square" | "circle";
@@ -106,10 +106,10 @@ export declare type Options = {
     };
 };
 export declare type FilterFunction = (i: number, j: number) => boolean;
-export declare type DownloadOptions = {
-    name?: string;
-    extension?: FileExtension;
-};
+// export declare type DownloadOptions = {
+//     name?: string;
+//     extension?: FileExtension;
+// };
 export declare type DrawArgs = {
     x: number;
     y: number;
@@ -131,4 +131,4 @@ export declare type RotateFigureArgs = {
     draw: () => void;
 };
 export declare type GetNeighbor = (x: number, y: number) => boolean;
-export declare type ExtensionFunction = (svg: SVGElement, options: Options) => void;
+// export declare type ExtensionFunction = (svg: SVGElement, options: Options) => void;
